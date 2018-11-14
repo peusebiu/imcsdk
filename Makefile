@@ -79,8 +79,8 @@ release: clean
 	python setup.py bdist_wheel upload
 
 dist: clean
-	python setup.py sdist
-	python setup.py bdist_wheel
+	python setup.py sdist -r http://aci-docker-reg.cisco.com/artifactory/api/pypi/atom-pypi
+	python setup.py bdist_wheel -r http://aci-docker-reg.cisco.com/artifactory/api/pypi/atom-pypi
 	ls -l dist
 
 install: clean
