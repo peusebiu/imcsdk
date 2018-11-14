@@ -78,7 +78,8 @@ release: dist
 	twine upload dist/*
 
 dist: clean
-	python setup.py sdist
+	python setup.py sdist -r http://aci-docker-reg.cisco.com/artifactory/api/pypi/atom-pypi
+	python setup.py bdist_wheel -r http://aci-docker-reg.cisco.com/artifactory/api/pypi/atom-pypi
 	ls -l dist
 
 install: clean
