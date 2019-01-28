@@ -562,18 +562,20 @@ def vmedia_mount_remove_all(handle, volumes= None, server_id=1):
     mos = []
     # Loop over each mapping
     for virt_media in virt_media_maps:
-        if virt_media.get_class_id() == 'CommSavedVMediaMap' and virt_media.volume_name in volumes:
+        # Remove the saved mapping
+        if virt_media.get_class_id() == 'CommSavedVMediaMap':
             virt_media.admin_action = CommSavedVMediaMapConsts.ADMIN_ACTION_DELETE_VOLUME
-            mos.append(virt_media)
+            handle.set_mo(virt_media)
         elif virt_media.get_class_id() == 'CommVMediaMap':
-            virt_media.status = 'deleted'
-            mos.append(virt_media)
+            handle.remove_mo(virt_media)
 
-    response = handle.set_mos(mos)
-    if response:
-        process_conf_mos_response(response, 'vmedia_mount_remove_all')
-
-
+    # Raise error if all mappings not removed
+    if len(handle.query_children(in_dn="sys/svc-ext/vmedia-svc")) > 0:
+        raise ImcOperationError('Remove Virtual Media',
+                                '{0}: ERROR - Unable remove all virtual' +
+                                'media mappings'.format(handle.ip))
+    # Return True if all mappings removed
+    return True
 
 
 def vmedia_mount_remove_image(handle, image_type, server_id=1):
