@@ -415,7 +415,6 @@ def vmedia_mount_remove_all(handle, server_id=1):
         if virt_media.get_class_id() == "CommSavedVMediaMap":
             virt_media.admin_action = CommSavedVMediaMapConsts.ADMIN_ACTION_DELETE_VOLUME
             handle.set_mo(virt_media)
-        # Remove the mapped ISO
         elif virt_media.get_class_id() == "CommVMediaMap":
             handle.remove_mo(virt_media)
 
