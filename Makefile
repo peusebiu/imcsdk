@@ -74,12 +74,13 @@ docs:
 servedocs: docs
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
-
-release: dist
-	twine upload dist/*
+release: clean
+	python setup.py sdist upload -r http://aci-docker-reg.cisco.com/artifactory/api/pypi/atom-pypi
+	python setup.py bdist_wheel upload -r http://aci-docker-reg.cisco.com/artifactory/api/pypi/atom-pypi
 
 dist: clean
-	python setup.py sdist
+	python setup.py sdist -r http://aci-docker-reg.cisco.com/artifactory/api/pypi/atom-pypi
+	python setup.py bdist_wheel -r http://aci-docker-reg.cisco.com/artifactory/api/pypi/atom-pypi
 	ls -l dist
 
 install: clean

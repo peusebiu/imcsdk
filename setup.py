@@ -18,10 +18,9 @@ with open('HISTORY.rst') as history_file:
 
 setup(
     name='imcsdk',
-    version='0.9.10',
+    version='0.9.6-atom',
     description="python SDK for Cisco UCS IMC",
     long_description=readme + '\n\n' + history,
-    long_description_content_type='text/x-rst',
     author="Cisco Systems",
     author_email='ucs-python@cisco.com',
     url='https://github.com/ciscoucs/imcsdk',
@@ -29,7 +28,7 @@ setup(
         'imcsdk',
     ],
     package_dir={'imcsdk':
-                 'imcsdk'},
+                     'imcsdk'},
     include_package_data=True,
     install_requires=requirements,
     license="http://www.apache.org/licenses/LICENSE-2.0",
