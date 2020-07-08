@@ -76,10 +76,11 @@ servedocs: docs
 
 
 release: dist
-	twine upload dist/*
+	twine upload --repository-url https://aci-docker-reg.cisco.com/artifactory/api/pypi/atom-pypi -u ${USER} -p ${PASSWORD} dist/*
 
 dist: clean
 	python setup.py sdist
+	python setup.py bdist_wheel
 	ls -l dist
 
 install: clean
